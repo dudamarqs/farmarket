@@ -1,4 +1,4 @@
-// TelaInicial.tsx - ESTE CÓDIGO ESTÁ CORRETO
+// TelaInicial.tsx 
 import React from 'react';
 import {
   StyleSheet,
