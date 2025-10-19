@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,11 +11,11 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 // Ícone atualizado para FontAwesome (estilo Bootstrap)
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 type RootStackParamList = {
   TelaInicial: undefined;
@@ -27,8 +27,8 @@ type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginEmail = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // 1. Novo estado para controlar a visibilidade da senha
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -38,7 +38,10 @@ const LoginEmail = () => {
 
       <View style={styles.header}>
         {/* CORREÇÃO 1: Seta de voltar agora navega para a TelaInicial */}
-        <TouchableOpacity onPress={() => navigation.navigate('TelaInicial')} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("TelaInicial")}
+          style={styles.backButton}
+        >
           <Icon name="arrow-circle-left" size={32} color="#0064E6" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>ENTRAR EM UMA CONTA</Text>
@@ -50,7 +53,7 @@ const LoginEmail = () => {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <Image
-            source={require('../assets/images/cientistas.png')}
+            source={require("../assets/images/cientistas.png")}
             style={styles.illustration}
             resizeMode="contain"
           />
@@ -92,7 +95,7 @@ const LoginEmail = () => {
           {/* CORREÇÃO 2: A função onPress foi movida para ser uma prop do TouchableOpacity */}
           <TouchableOpacity
             style={styles.continueButton}
-            onPress={() => navigation.navigate('ValidacaoEmail')}
+            onPress={() => navigation.navigate("ValidacaoEmail")}
           >
             <Text style={styles.continueButtonText}>Continuar</Text>
           </TouchableOpacity>
@@ -106,36 +109,36 @@ const LoginEmail = () => {
 // ESTILOS COM AJUSTES PARA O CAMPO DE SENHA
 // =======================================================
 const styles = StyleSheet.create({
-    safeArea: {
-      flex: 1,
-      backgroundColor: '#F0F2F5',
-    },
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#F0F2F5",
+  },
   container: {
     flex: 1,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 15,
     paddingHorizontal: 10,
-    position: 'relative',
+    position: "relative",
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: "#E0E0E0",
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     left: 15,
     padding: 5,
   },
   headerTitle: {
-    color: '#0064E6',
+    color: "#0064E6",
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 1,
   },
   scrollContent: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingHorizontal: 30,
     paddingTop: 30,
     paddingBottom: 20,
@@ -147,45 +150,45 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#0064E6',
-    textAlign: 'left',
+    fontWeight: "700",
+    color: "#0064E6",
+    textAlign: "left",
     marginBottom: 20,
   },
   subtitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#FFB300',
-    textAlign: 'left',
+    fontWeight: "600",
+    color: "#FFB300",
+    textAlign: "left",
     marginBottom: 15,
   },
   inputContainer: {
-    width: '100%',
+    width: "100%",
     marginBottom: 20,
   },
   inputLabel: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#333',
+    fontWeight: "700",
+    color: "#333",
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: '#DCDCDC',
+    borderColor: "#DCDCDC",
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 12,
     fontSize: 16,
-    width: '100%',
+    width: "100%",
   },
   // 3. Novos estilos para o campo de senha com ícone
   passwordInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: '#DCDCDC',
+    borderColor: "#DCDCDC",
     borderRadius: 8,
     paddingHorizontal: 15,
   },
@@ -197,18 +200,18 @@ const styles = StyleSheet.create({
   footer: {
     padding: 20,
     paddingHorizontal: 30,
-    backgroundColor: '#F0F2F5',
+    backgroundColor: "#F0F2F5",
   },
   continueButton: {
-    backgroundColor: '#000000',
+    backgroundColor: "#000000",
     borderRadius: 8,
     paddingVertical: 15,
-    alignItems: 'center',
+    alignItems: "center",
   },
   continueButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

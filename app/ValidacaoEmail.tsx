@@ -11,6 +11,7 @@ import {
   FlatList,
   Image,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';

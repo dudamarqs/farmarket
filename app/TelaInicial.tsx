@@ -45,7 +45,7 @@ const TelaInicial = () => {
 
             <TouchableOpacity
               style={styles.buttonSecondary}
-              onPress={() => navigation.navigate('CriarConta')}>
+              onPress={() => navigation.navigate('CadastroEmail')}>
               <Text style={styles.buttonSecondaryText}>Criar nova conta</Text>
             </TouchableOpacity>
 
