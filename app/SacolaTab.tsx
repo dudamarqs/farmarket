@@ -35,15 +35,15 @@ type ProductType = {
 
 // Dados mockados
 const initialCartItems: ProductType[] = [
-  { id: 'h2', name: 'Sabonete Íntimo Nivea 250ml', price: 8.90, image: require('../assets/images/img.png'), quantity: 2 },
-  { id: 'h3', name: 'Kit escova de dente Condor 2 unidades', price: 8.90, image: require('../assets/images/img.png'), quantity: 1 },
+  { id: 'h2', name: 'Sabonete Íntimo Nivea 250ml', price: 8.90, image: require('../assets/images/produtos/sabonete.webp'), quantity: 2 },
+  { id: 'h3', name: 'Kit escova de dente Condor 2 unidades', price: 8.90, image: require('../assets/images/produtos/escovas.webp'), quantity: 1 },
 ];
 
 const suggestedProducts = [
-    { id: 'h3_s', name: 'Kit escova de dente Condor', price: 8.90, store: 'Drogasil', time: '5-10min', image: require('../assets/images/img.png') },
-    { id: 'h2_s', name: 'Sabonete Íntimo Nivea 250ml', price: 8.90, store: 'Drogasil', time: '5-10min', image: require('../assets/images/img.png') },
-    { id: 'm4_s', name: 'Protetor Facial Needs 40g', price: 11.99, store: 'Drogasil', time: '5-10min', image: require('../assets/images/img.png') },
-    { id: 'v1_s', name: 'Vitamina C Redoxon 30cp', price: 35.00, store: 'Drogasil', time: '5-10min', image: require('../assets/images/img.png') },
+    { id: 'h3_s', name: 'Kit escova de dente Condor', price: 8.90, store: 'Drogasil', time: '5-10min', image: require('../assets/images/produtos/escovas.webp') },
+    { id: 'h2_s', name: 'Sabonete Íntimo Nivea 250ml', price: 8.90, store: 'Drogasil', time: '5-10min', image: require('../assets/images/produtos/sabonete.webp') },
+    { id: 'm4_s', name: 'Protetor Facial Needs 40g', price: 11.99, store: 'Drogasil', time: '5-10min', image: require('../assets/images/produtos/protetor.webp') },
+    { id: 'v1_s', name: 'Vitamina C Redoxon 30cp', price: 35.00, store: 'Drogasil', time: '5-10min', image: require('../assets/images/produtos/vitamina.webp') },
 ];
 
 const SacolaScreen = () => {

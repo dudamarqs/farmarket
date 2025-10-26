@@ -62,10 +62,10 @@ const filters = [
 ];
 
 const pharmaciesData = [
-  { id: 'drogall', name: 'Drogall', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/img.png') },
-  { id: 'paguemenos', name: 'PagueMenos', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/img.png') },
-  { id: 'drogasil', name: 'Drogasil', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/img.png') },
-  { id: 'drogariaRosario', name: 'Drogaria Rosário', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/img.png') },
+  { id: 'drogall', name: 'Drogall', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/farmacias/drogal.png') },
+  { id: 'paguemenos', name: 'PagueMenos', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/farmacias/pague_menos.png') },
+  { id: 'drogasil', name: 'Drogasil', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/farmacias/drogasil.png') },
+  { id: 'drogariaRosario', name: 'Drogaria Rosário', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/farmacias/drogaria_rosario.png') },
 ];
 
 
@@ -77,10 +77,10 @@ const productsData = {
     { id: 'h4', name: 'Espuma de Barbear Bozzano', store: 'Drogall', time: '5-10min', price: 'R$ 13,99', image: require('../assets/images/img.png') },
   ],
   medicamentos: [
-    { id: 'm1', name: 'Buscopan Ibup. 400mg 20 und', store: 'Drogall', time: '5-10min', price: 'R$ 22,90', image: require('../assets/images/img.png') },
-    { id: 'm2', name: 'Advil', store: 'Drogaria Rosário', time: '5-10min', price: 'R$ 18,50', image: require('../assets/images/img.png') },
-    { id: 'm3', name: 'Neosaldina', store: 'PagueMenos', time: '5-10min', price: 'R$ 15,00', image: require('../assets/images/img.png') },
-    { id: 'm4', name: 'Dorflex', store: 'Drogasil', time: '5-10min', price: 'R$ 11,99', image: require('../assets/images/img.png') },
+    { id: 'm1', name: 'Buscopan Ibup. 400mg 20 und', store: 'Drogall', time: '5-10min', price: 'R$ 22,90', image: require('../assets/images/produtos/buscofem.webp') },
+    { id: 'm2', name: 'Advil', store: 'Drogaria Rosário', time: '5-10min', price: 'R$ 18,50', image: require('../assets/images/produtos/advil.png') },
+    { id: 'm3', name: 'Neosaldina', store: 'PagueMenos', time: '5-10min', price: 'R$ 15,00', image: require('../assets/images/produtos/neosaldina.webp') },
+    { id: 'm4', name: 'Dorflex', store: 'Drogasil', time: '5-10min', price: 'R$ 11,99', image: require('../assets/images/produtos/dorflex.jpg') },
   ],
   vitaminas: [
     { id: 'v1', name: 'Vitamina C Redoxon 30cp', store: 'Drogall', time: '5-10min', price: 'R$ 35,00', image: require('../assets/images/img.png') },
