@@ -31,6 +31,7 @@ type RootStackParamList = {
   AvisosImportantes: undefined;
   MarketplaceHome: undefined;
   ProductDetail: undefined;
+  Meuspedidos: undefined;
   // Adicione outras telas que podem ser navegadas a partir daqui
 };
 
@@ -38,7 +39,7 @@ type RootStackParamList = {
 type BottomTabParamList = {
   HomeTab: undefined;
   SacolaTab: undefined;
-  PedidosTab: undefined;
+  Meuspedidos: undefined;
   PerfilTab: undefined;
 };
 
@@ -272,7 +273,7 @@ const MarketplaceHome = () => {
           <Ionicons name="bag" size={24} color="#888" />
           <Text style={styles.tabText}>Sacola</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Meuspedidos')}>
           <Ionicons name="receipt" size={24} color="#888" />
           <Text style={styles.tabText}>Pedidos</Text>
         </TouchableOpacity>
