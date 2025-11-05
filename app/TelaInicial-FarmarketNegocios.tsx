@@ -33,33 +33,23 @@ const TelaInicial = () => {
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.contentContainer}>
             <Text style={styles.welcomeText}>SEJA BEM-VINDO(A) À</Text>
-            <Text style={styles.brandName}>Farmarket</Text>
+            <Text style={styles.brandName}>Farmarket Negócios</Text>
+
+            <Text style={styles.hintText}>Cadastre sua farmácia e aumente suas vendas online</Text>
 
             <TouchableOpacity
               style={styles.buttonPrimary}
-              onPress={() => navigation.navigate('LoginEmail')}>
+              onPress={() => navigation.navigate('LoginEmail-FN')}>
               <Text style={styles.buttonPrimaryText}>Entrar com e-mail</Text>
             </TouchableOpacity>
 
-            <Text style={styles.hintText}>não possui uma conta?</Text>
-
-            <TouchableOpacity
-              style={styles.buttonSecondary}
-              onPress={() => navigation.navigate('CadastroEmail')}>
-              <Text style={styles.buttonSecondaryText}>Criar nova conta</Text>
-            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.buttonTertiary}
-              onPress={() => navigation.navigate('TelaPrincipal')}>
-              <Text style={styles.buttonTertiaryText}>Continuar como visitante →</Text>
+              onPress={() => navigation.navigate('CadastroFarmacia')}>
+              <Text style={styles.buttonTertiaryText}>Quero cadastrar a minha farmácia</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.buttonAdm}
-              onPress={() => navigation.navigate('TelaInicial-FarmarketNegocios')}>
-              <Text style={styles.buttonTertiaryText}>Ir para Farmarket Negócios</Text>
-            </TouchableOpacity>
           </View>
         </SafeAreaView>
       </ImageBackground>
@@ -96,11 +86,18 @@ const styles = StyleSheet.create({
   },
   brandName: {
     color: '#FFFFFF',
-    fontSize: 42,
+    fontSize: 36,
     fontFamily: 'System',
     fontWeight: '700',
     textAlign: 'left',
     marginBottom: 10,
+  },
+  hintText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'left',
+    marginBottom: 12,
   },
   buttonPrimary: {
     backgroundColor: '#F0F0F0',
@@ -113,14 +110,6 @@ const styles = StyleSheet.create({
     color: '#212121',
     fontSize: 20,
     fontWeight: '600',
-  },
-  hintText: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 12,
-    opacity: 0.8,
   },
   buttonSecondary: {
     backgroundColor: '#000000',

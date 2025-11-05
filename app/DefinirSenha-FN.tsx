@@ -80,7 +80,7 @@ const DefinirSenha: React.FC<DefinirSenhaProps> = ({
         >
           <Icon name="arrow-circle-left" size={32} color="#0064E6" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>DEFINIR SENHA</Text>
+        <Text style={styles.headerTitle}>DEFINIR SENHA DA CONTA</Text>
       </View>
 
       <KeyboardAvoidingView
@@ -88,7 +88,7 @@ const DefinirSenha: React.FC<DefinirSenhaProps> = ({
         style={styles.container}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <Text style={styles.questionHighlight}>Escolha a sua senha.</Text>
+          <Text style={styles.questionHighlight}>Agora, por questões de segurança, defina uma senha de acesso para a sua conta</Text>
 
           {/* Campo Senha */}
           <View style={styles.inputContainer}>
@@ -137,7 +137,7 @@ const DefinirSenha: React.FC<DefinirSenhaProps> = ({
               styles.continueButton,
               !isButtonEnabled && styles.disabledButton,
             ]}
-            onPress={() => navigation.navigate("AddLocalization")}
+            onPress={() => navigation.navigate("Home-FN")}
             disabled={!isButtonEnabled}
           >
             <Text style={styles.continueButtonText}>Continuar</Text>

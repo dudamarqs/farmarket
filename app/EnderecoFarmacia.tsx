@@ -217,27 +217,13 @@ const Endereco: React.FC<EnderecoProps> = ({
                 styles.input,
                 semComplemento && { backgroundColor: "#EEE", color: "#666" },
               ]}
-              placeholder="Condomínio, Apartamento..."
+              placeholder="Ao lado de, em frente ao..."
               value={semComplemento ? "" : complemento}
               onChangeText={setComplemento}
               editable={!semComplemento}
             />
 
             <Checkbox />
-
-            {/* Tags de Endereço */}
-            <View style={styles.tagSection}>
-              <Text style={styles.tagTitle}>Salvar endereço como:</Text>
-              <View style={styles.tagList}>
-                <AddressTag label="Casa" iconName="home" type="Casa" />
-                <AddressTag
-                  label="Trabalho"
-                  iconName="briefcase"
-                  type="Trabalho"
-                />
-                <AddressTag label="Outro..." type="Outro" />
-              </View>
-            </View>
           </View>
         </ScrollView>
 
@@ -245,7 +231,7 @@ const Endereco: React.FC<EnderecoProps> = ({
           {/* CORREÇÃO 2: A função onPress foi movida para ser uma prop do TouchableOpacity */}
           <TouchableOpacity
             style={[styles.continueButton]}
-            onPress={() => navigation.navigate("AvisosImportantes")}
+            onPress={() => navigation.navigate("Logo-Farmacia")}
           >
             <Text style={styles.continueButtonText}>Continuar</Text>
           </TouchableOpacity>
