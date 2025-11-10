@@ -51,7 +51,7 @@ const TelaInicial = () => {
 
             <TouchableOpacity
               style={styles.buttonTertiary}
-              onPress={() => navigation.navigate('TelaPrincipal')}>
+              onPress={() => navigation.navigate('MarketplaceHome')}>
               <Text style={styles.buttonTertiaryText}>Continuar como visitante →</Text>
             </TouchableOpacity>
 

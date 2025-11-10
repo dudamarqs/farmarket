@@ -5,3 +5,4 @@ class Farmacia(Base):
     __tablename__ = 'Farmacias'
     id = Column(Integer, primary_key=True)
     nome = Column(String(255), nullable=False)
+    imagem = Column(String(255))

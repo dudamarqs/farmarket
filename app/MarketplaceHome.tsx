@@ -69,7 +69,6 @@ const pharmaciesData = [
   { id: 'drogariaRosario', name: 'Drogaria Rosário', distance: '1,2 km', time: '10 - 5 min', logo: require('../assets/images/farmacias/drogaria_rosario.png') },
 ];
 
-
 const productsData = {
   higiene: [
     { id: 'h1', name: 'Sabonete íntimo Nivea 250ml', store: 'Drogasil', time: '5-10min', price: 'R$ 22,90', image: require('../assets/images/img.png') },
