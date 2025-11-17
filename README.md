@@ -12,9 +12,12 @@
 
 - Tela de login - (Usuário);
 - Tela inicial, sacola e pedidos - (Usuário);
-- Fluxo de compra completo - (Usuário).
+- Fluxo de compra completo - (Usuário);
+- Fluxo de adição de produtos - (Farmácia).
 
 ### O que deve ser feito
 
 - Perifl - (Usuário);
-- Fluxo de adição de produtos - (Farmácia).
+- Seção de entregas - (Entregador);
+- Carteira - (Entregador).
+
