@@ -17,7 +17,7 @@
 
 ### O que deve ser feito
 
-- Perifl - (Usuário);
+- Perfil - (Usuário);
 - Seção de entregas - (Entregador);
 - Carteira - (Entregador).
 
