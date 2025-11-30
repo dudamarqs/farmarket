@@ -15,7 +15,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type RootStackParamList = {
   LoginEmail: undefined;
   CriarConta: undefined;
-  TelaPrincipal: undefined;
+  EntregadorTelaInicial: undefined;
 };
 
 type WelcomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -51,8 +51,8 @@ const TelaInicial = () => {
 
             <TouchableOpacity
               style={styles.buttonTertiary}
-              onPress={() => navigation.navigate('MarketplaceHome')}>
-              <Text style={styles.buttonTertiaryText}>Continuar como visitante →</Text>
+              onPress={() => navigation.navigate('EntregadorTelaInicial')}>
+              <Text style={styles.buttonTertiaryText}>Ir para Farmarket Entregas 🛵</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
