@@ -16,6 +16,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { tranformarMoeda } from "@/utils/dinheiro";
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -33,11 +34,11 @@ const AdicionarProdutoScreen = () => {
   const [descricao, setDescricao] = useState("");
   const [preco, setPreco] = useState("R$ 0,00");
   const [imagemUri, setImagemUri] = useState<string | null>(null);
-  const [stock, setStock] = useState(""); 
-  
+  const [stock, setStock] = useState("");
+
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null); 
-  const [items, setItems] = useState([ 
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
     { label: 'Remédio', value: 'remedio' },
     { label: 'Cosmético', value: 'cosmetico' },
     { label: 'Higiene', value: 'higiene' },
@@ -54,14 +55,14 @@ const AdicionarProdutoScreen = () => {
     }).format(value / 100);
     setPreco(formatted);
   };
-  
+
   // --- MUDANÇA: Função para filtrar o estoque ---
   /**
    * Garante que apenas números inteiros sejam aceitos no estoque
    */
   const handleStockChange = (text: string) => {
     // Remove qualquer caractere que NÃO seja um dígito (0-9)
-    const numericValue = text.replace(/\D/g, ''); 
+    const numericValue = text.replace(/\D/g, '');
     setStock(numericValue);
   };
   // --- FIM DA MUDANÇA ---
@@ -71,22 +72,48 @@ const AdicionarProdutoScreen = () => {
     setImagemUri(fakeImageUrl);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!nome || preco === "R$ 0,00" || !value || !stock) {
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
       return;
     }
-    
-    console.log("Salvando produto:", { 
-      nome, 
-      descricao, 
-      categoria: value, 
-      preco, 
-      stock: Number(stock), 
-      imagemUri 
-    });
-    Alert.alert("Sucesso", "Produto salvo com sucesso! (Simulação)");
-    navigation.goBack();
+
+    const precoFormatado = tranformarMoeda(preco);
+    const parametros = {
+      nome: nome,
+      descricao: descricao,
+      preco: precoFormatado,
+      estoque: Number(stock),
+      imagem: 'imagemUri',
+      farmacia_id: 1
+    }
+    try {
+      console.log("Salvando produto:", JSON.stringify(parametros));
+
+      // terinar depois
+      const resposta = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/produtos/cadastrar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(parametros),
+      });
+
+      if (resposta.ok) {
+        Alert.alert("Sucesso", "Produto salvo com sucesso!");
+        navigation.goBack();
+      }
+      else {
+        const data = await resposta.json()
+        console.log(data);
+
+        Alert.alert("Erro", `Não foi possivel salvar o produto.\n${data.detail[1].msg}`);
+      }
+    }
+    catch (erro) {
+      Alert.alert("Erro", `Não foi possivel salvar o produto ${process.env.EXPO_PUBLIC_API_URL}  \n${erro}`);
+    }
+
   };
 
   const isSaveEnabled = nome.trim().length > 0 && preco.trim() !== "R$ 0,00" && value !== null && stock.trim().length > 0;
@@ -109,12 +136,12 @@ const AdicionarProdutoScreen = () => {
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView 
-          style={styles.scrollView} 
+        <ScrollView
+          style={styles.scrollView}
           contentContainerStyle={{ paddingBottom: 20 }}
-          scrollEnabled={!open} 
+          scrollEnabled={!open}
         >
-          
+
           <Text style={styles.label}>Nome do produto</Text>
           <TextInput
             style={styles.input}
@@ -146,8 +173,8 @@ const AdicionarProdutoScreen = () => {
             style={styles.dropdown}
             textStyle={styles.dropdownText}
             placeholder="Selecione uma categoria"
-            dropDownContainerStyle={styles.dropdownListContainer} 
-            zIndex={1000} 
+            dropDownContainerStyle={styles.dropdownListContainer}
+            zIndex={1000}
             zIndexInverse={1000}
           />
 
@@ -169,7 +196,7 @@ const AdicionarProdutoScreen = () => {
             placeholderTextColor="#A9A9A9"
             value={stock}
             // Chama a nova função de filtro
-            onChangeText={handleStockChange} 
+            onChangeText={handleStockChange}
             keyboardType="numeric" // Mantém o teclado numérico
           />
           {/* --- FIM DA MUDANÇA --- */}
@@ -182,20 +209,20 @@ const AdicionarProdutoScreen = () => {
               <Icon name="upload" size={40} color="#A9A9A9" />
             )}
           </TouchableOpacity>
-          
+
         </ScrollView>
 
         <View style={styles.footerButtonsContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.cancelButton}
             onPress={() => navigation.goBack()}
           >
             <Text style={styles.cancelButtonText}>Cancelar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              styles.saveButton, 
+              styles.saveButton,
               !isSaveEnabled && styles.disabledButton
             ]}
             onPress={handleSave}
@@ -268,7 +295,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     paddingTop: 12,
   },
-  
+
   dropdown: {
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
