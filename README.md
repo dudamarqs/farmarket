@@ -51,6 +51,7 @@ O projeto foi desenvolvido em equipe como parte da avaliação do semestre.
   * Expo
   * React Navigation
   * Consumo de API REST (simulado)
+  * Python
 
 ## Funcionalidades Principais
 
@@ -78,7 +79,7 @@ farmarket/
 ├── scripts/               → scripts auxiliares
 │
 ├── node_modules/          → dependências do projeto
-│
+|
 ├── .gitignore
 ├── app.json               → configuração do Expo
 ├── eslint.config.js       → configuração do ESLint
@@ -116,7 +117,7 @@ Para que o aplicativo funcione corretamente, é necessário rodar o servidor loc
 Exemplo de configuração:
 
 ```env
-EXPO_PUBLIC_API_URL="192.168.1.1:8000"
+EXPO_PUBLIC_API_URL="http://192.168.1.1:8000"
 ```
 
 **Observações Importantes:**
