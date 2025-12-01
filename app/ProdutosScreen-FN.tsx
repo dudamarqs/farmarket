@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Ícones MaterialCommunityIcons
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useFocusEffect } from "expo-router";
 
 // Definindo as rotas para navegação
 type RootStackParamList = {
@@ -24,31 +25,26 @@ type RootStackParamList = {
 
 type navigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-// --- DADOS MOCK (SIMULADOS) DE PRODUTOS ---
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  stock: number;
-}
-
-const MOCK_PRODUCTS: Product[] = [
-  { id: "1", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 35 },
-  { id: "2", name: "Creme de Rosto Nivea 250ml", price: "R$ 16,90", stock: 22 },
-  { id: "3", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 30 },
-  { id: "4", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 35 },
-  { id: "5", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 28 },
-  { id: "6", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 30 },
-  { id: "7", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 35 },
-  { id: "8", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 31 },
-  { id: "9", name: "Sabonete Íntimo Nivea 250ml", price: "R$ 16,90", stock: 30 },
-  // Adicione mais produtos conforme necessário
-];
+// // --- DADOS MOCK (SIMULADOS) DE PRODUTOS ---
+// interface Product {
+//   id: string;
+//   name: string;
+//   price: string;
+//   stock: number;
+// }
 
 const ProdutosScreen = () => {
+  interface produtos {
+    id: string,
+    name: string,
+    price: string,
+    description?: string
+    stock: number,
+    imagem: string,
+  }
   const navigation = useNavigation<navigationProp>();
   const [searchQuery, setSearchQuery] = useState("");
-  const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS); // Estado para a lista de produtos
+  const [products, setProducts] = useState<produtos[]>([]); // Estado para a lista de produtos
 
   // Função de busca
   const filteredProducts = products.filter((product) =>
@@ -56,7 +52,7 @@ const ProdutosScreen = () => {
   );
 
   // Renderiza cada item do produto na grade
-  const renderProductItem = ({ item }: { item: Product }) => (
+  const renderProductItem = ({ item }: { item: produtos }) => (
     <View style={styles.productCard}>
       {/* Imagem do produto - placeholder */}
       <View style={styles.productImagePlaceholder} />
@@ -72,6 +68,24 @@ const ProdutosScreen = () => {
       </TouchableOpacity>
     </View>
   );
+
+  useFocusEffect(() => {
+    async function carregarProdutos() {
+      try{
+        // colocar o id da farmacia aqui 
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/produtos/listar/1`);
+        
+        if (response.ok){
+          const produtos = await response.json()
+          setProducts(produtos);
+        }
+      }
+      catch{
+        Alert.alert('Erro', 'ocorreu um erro ao carregar os produtos');
+      }
+    }
+    carregarProdutos();
+  });
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -224,8 +238,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20, // Espaçamento para o final da lista
   },
   row: {
-    justifyContent: 'space-between', // Espaço entre as colunas
+    justifyContent: 'flex-start', // Espaço entre as colunas
     marginBottom: 10, // Espaço entre as linhas
+    gap: 10
   },
   productCard: {
     width: "32%", // Aproximadamente 1/3 da largura, descontando o espaçamento

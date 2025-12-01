@@ -20,23 +20,24 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import DropDownPicker from 'react-native-dropdown-picker';
+import { tranformarMoeda } from "@/utils/dinheiro";
 
 // Interface de Produto
 interface Product {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
   category?: string;
   price: string;
-  stock: number;
+  stock: string;
   imageUrl?: string | null;
 }
 
 // Lista de rotas
 type RootStackParamList = {
-  Produtos: undefined; 
+  Produtos: undefined;
   AdicionarProduto: undefined;
-  EditarProduto: { product: Product }; 
+  EditarProduto: { product: Product };
 };
 
 type navigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -45,7 +46,7 @@ type EditarProdutoRouteProp = RouteProp<RootStackParamList, 'EditarProduto'>;
 const EditarProdutoScreen = () => {
   const navigation = useNavigation<navigationProp>();
   const route = useRoute<EditarProdutoRouteProp>();
-  const { product } = route.params; 
+  const { product } = route.params;
 
   // --- MUDANÇA: Estado para controlar o modal ---
   const [modalVisible, setModalVisible] = useState(false);
@@ -57,10 +58,10 @@ const EditarProdutoScreen = () => {
   const [preco, setPreco] = useState(product.price);
   const [stock, setStock] = useState(String(product.stock));
   const [imagemUri, setImagemUri] = useState<string | null>(product.imageUrl || null);
-  
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(product.category || null);
-  const [items, setItems] = useState([ 
+  const [items, setItems] = useState([
     { label: 'Remédio', value: 'remedio' },
     { label: 'Cosmético', value: 'cosmetico' },
     { label: 'Higiene Pessoal', value: 'higiene' },
@@ -80,39 +81,81 @@ const EditarProdutoScreen = () => {
   };
 
   const handleStockChange = (text: string) => {
-    const numericValue = text.replace(/\D/g, ''); 
+    const numericValue = text.replace(/\D/g, '');
     setStock(numericValue);
   };
-  
+
   const handleImageSelect = () => {
     const fakeImageUrl = `https://picsum.photos/seed/${nome || 'produto'}/120/120`;
     setImagemUri(fakeImageUrl);
   };
 
   // Lógica de Salvar
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!nome || !preco || !value || !stock) {
       Alert.alert("Erro", "Por favor, preencha todos os campos obrigatórios.");
       return;
     }
-    
-    const updatedProduct: Product = { /* ... */ }; // (Lógica de salvar)
-    console.log("Salvando produto atualizado:", updatedProduct);
-    Alert.alert("Sucesso", "Produto atualizado com sucesso! (Simulação)");
-    navigation.goBack(); 
+
+    const updatedProduct = {
+      nome: nome,
+      preco: tranformarMoeda(preco),
+      estoque: stock,
+      descricao: descricao,
+      farmacia_id: 1,
+      imagem: '/////'
+    }; // (Lógica de salvar)
+
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/produtos/atualizar/${product.id}`, {
+        headers: {
+          'Content-Type': 'application/json', // <--- ADICIONE ESTA LINHA
+        },
+        method: 'PUT',
+        body: JSON.stringify(updatedProduct)
+      });
+
+      if (response.ok) {
+        Alert.alert("Sucesso", "Produto atualizado com sucesso!");
+        navigation.goBack();
+      }
+      else {
+        Alert.alert("Ocorreu um erro de ao salvar os dados");
+        console.log(JSON.stringify(updatedProduct));
+        console.log(await response.json());
+
+      }
+    }
+    catch (erro) {
+      Alert.alert(`Ocorreu um erro inesperado ${erro}`);
+    }
   };
-  
+
   // --- MUDANÇA: 'Remover' agora abre o modal ---
   const handleRemove = () => {
     setModalVisible(true); // Apenas abre o modal
   };
 
   // --- MUDANÇA: Lógica de remoção movida para cá ---
-  const confirmRemove = () => {
-    console.log("Removendo produto (ID):", product.id);
-    setModalVisible(false); // Fecha o modal
-    Alert.alert("Removido", "Produto removido com sucesso! (Simulação)");
-    navigation.goBack(); // Volta para a tela de produtos
+  const confirmRemove = async () => {
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/produtos/deletar/${product.id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        Alert.alert("Sucesso", "Produto removido com sucesso!");
+        setModalVisible(false); // Fecha o modal
+        navigation.goBack();
+      }
+      else {
+        Alert.alert("Ocorreu um erro de ao remover os dados");
+
+      }
+    }
+    catch (erro) {
+      Alert.alert(`Ocorreu um erro inesperado ${erro}`);
+    }
   };
   // --- FIM DA MUDANÇA ---
 
@@ -132,20 +175,20 @@ const EditarProdutoScreen = () => {
         }}
       >
         {/* Overlay escuro */}
-        <Pressable 
-          style={styles.modalOverlay} 
+        <Pressable
+          style={styles.modalOverlay}
           onPress={() => setModalVisible(false)} // Fecha ao clicar fora
         >
           {/* Conteúdo do Modal (para evitar que o clique feche) */}
-          <Pressable style={styles.modalContent} onPress={() => {}}> 
+          <Pressable style={styles.modalContent} onPress={() => { }}>
             {/* Ícone de Fechar (X) */}
-            <TouchableOpacity 
-              style={styles.modalCloseButton} 
+            <TouchableOpacity
+              style={styles.modalCloseButton}
               onPress={() => setModalVisible(false)}
             >
               <Icon name="close" size={24} color="#666" />
             </TouchableOpacity>
-            
+
             {/* Ícone de Alerta (!) */}
             <Icon name="alert-circle-outline" size={32} color="#FFB300" style={styles.modalWarningIcon} />
 
@@ -183,12 +226,12 @@ const EditarProdutoScreen = () => {
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView 
-          style={styles.scrollView} 
+        <ScrollView
+          style={styles.scrollView}
           contentContainerStyle={{ paddingBottom: 20 }}
-          scrollEnabled={!open} 
+          scrollEnabled={!open}
         >
-          
+
           <Text style={styles.label}>Nome do produto</Text>
           <View style={styles.inputContainer}>
             <TextInput
@@ -222,8 +265,8 @@ const EditarProdutoScreen = () => {
             style={styles.dropdown}
             textStyle={styles.dropdownText}
             placeholder="Selecione uma categoria"
-            dropDownContainerStyle={styles.dropdownListContainer} 
-            zIndex={1000} 
+            dropDownContainerStyle={styles.dropdownListContainer}
+            zIndex={1000}
             zIndexInverse={1000}
           />
 
@@ -239,7 +282,7 @@ const EditarProdutoScreen = () => {
           <TextInput
             style={styles.input}
             value={stock}
-            onChangeText={handleStockChange} 
+            onChangeText={handleStockChange}
             keyboardType="numeric"
           />
 
@@ -251,27 +294,27 @@ const EditarProdutoScreen = () => {
               <Icon name="upload" size={40} color="#A9A9A9" />
             )}
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={styles.removeButton}
             onPress={handleRemove} // --- MUDANÇA: Chama o 'handleRemove'
           >
             <Text style={styles.removeButtonText}>Remover produto</Text>
           </TouchableOpacity>
-          
+
         </ScrollView>
 
         <View style={styles.footerButtonsContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.cancelButton}
             onPress={() => navigation.goBack()}
           >
             <Text style={styles.cancelButtonText}>Cancelar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              styles.saveButton, 
+              styles.saveButton,
               !isSaveEnabled && styles.disabledButton
             ]}
             onPress={handleSave}
@@ -354,7 +397,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 16,
     color: "#333",
-    paddingRight: 40, 
+    paddingRight: 40,
   },
   inputIcon: {
     position: 'absolute',

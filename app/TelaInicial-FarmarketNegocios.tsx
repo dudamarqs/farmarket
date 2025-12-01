@@ -39,7 +39,8 @@ const TelaInicial = () => {
 
             <TouchableOpacity
               style={styles.buttonPrimary}
-              onPress={() => navigation.navigate('LoginEmail-FN')}>
+              // onPress={() => navigation.navigate('LoginEmail-FN')}>
+              onPress={() => navigation.navigate('Home-FN')}>
               <Text style={styles.buttonPrimaryText}>Entrar com e-mail</Text>
             </TouchableOpacity>
 
